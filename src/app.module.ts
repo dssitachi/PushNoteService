@@ -5,6 +5,8 @@ import { TasksModule } from './tasks/tasks.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PushTokensModule } from './push-tokens/push-tokens.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         uri: config.get<string>('MONGODB_URI')
       }),
     }), 
-    PushTokensModule,
+    PushTokensModule, AuthModule, UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
