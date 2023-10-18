@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
   providers: [PushTokensService],
   imports: [
     MongooseModule.forFeature([{ name: PushToken.name, schema: PushTokenSchema }])
-  ]
+  ],
+  exports: [PushTokensService]
 })
 export class PushTokensModule {}

@@ -6,9 +6,6 @@ export type TaskDocument = HydratedDocument<Task>;
 @Schema()
 export class Task {
   @Prop()
-  id: string;
-
-  @Prop()
   title: string;
 
   @Prop()

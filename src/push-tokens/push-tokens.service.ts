@@ -17,15 +17,17 @@ export class PushTokensService {
     return task;
   }
 
-  findAll() {
+  sendPushNotification(to: string) {
     expo.sendPushNotificationsAsync([
-      { to: '', sound: 'default', body: 'This is a test notification' },
+      { to, sound: 'default', body: 'This is a test notification' },
     ])
     return `This action returns all pushTokens`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pushToken`;
+  async findOne(userId: string) {
+    
+    const token = await this.pushTokenModel.findOne({ userId }).exec();
+    return token.token;
   }
 
   update(id: number, updatePushTokenDto: UpdatePushTokenDto) {

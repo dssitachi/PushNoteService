@@ -12,15 +12,6 @@ export class PushTokensController {
     return this.pushTokensService.create(createPushTokenDto);
   }
 
-  @Get()
-  findAll() {
-    return this.pushTokensService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pushTokensService.findOne(+id);
-  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePushTokenDto: UpdatePushTokenDto) {
