@@ -28,12 +28,16 @@ export class AuthService {
         await this.pushTokenService.create({userId: user.userId, token });
         return {
             token: await this.jwtService.signAsync(payload),
+            isAdmin: user.email === "admin"
         };
     }
 
     async signUp(name: string, email: string, password: string, token: string): Promise<any> {
         const user = await this.usersService.create(name, email, password);
         await this.pushTokenService.create({userId: user.userId, token });
-        return user;
+        const payload = { email: user.email, userId: user.userId};
+        return {
+            token: await this.jwtService.signAsync(payload),
+        };
     }
 }

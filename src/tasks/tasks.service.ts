@@ -15,17 +15,20 @@ export class TasksService {
   
   async create(createTaskDto: CreateTaskDto) {
     const task = await this.taskModel.create(createTaskDto);
-    const res = await this.pushTokensService.findOne(createTaskDto.assignee)
+    const res = await this.pushTokensService.findOne(createTaskDto.assigneeId)
     this.pushTokensService.sendPushNotification(res)
     return task;
   }
 
   findAll() {
-    return `This action returns all tasks`;
+    return this.taskModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findTasksByAssignee(assigneeId: string) {
+    console.log(assigneeId);
+    const res = await this.taskModel.find({assigneeId}).exec();
+    console.log(res);
+    return res;
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {

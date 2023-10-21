@@ -6,6 +6,7 @@ export class CreateTaskDto {
     readonly dueTime: string;
     readonly dueDate: string;
     readonly assignee: string;
+    readonly assigneeId: string;
     readonly assignedBy: string;
     readonly status: string;
 }

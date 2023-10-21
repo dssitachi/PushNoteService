@@ -13,8 +13,13 @@ export class PushTokensService {
   constructor(@InjectModel(PushToken.name) private readonly pushTokenModel: Model<PushToken>) {}
   
   async create(createPushTokenDto: CreatePushTokenDto) {
-    const task = await this.pushTokenModel.create(createPushTokenDto);
-    return task;
+    const isTokenExists = await this.pushTokenModel.findOne({ userId: createPushTokenDto.userId }).exec();
+    if(isTokenExists) {
+      const res = await this.pushTokenModel.updateOne({ userId: createPushTokenDto.userId }, { token: createPushTokenDto.token }).exec();
+      return res;
+    }
+    const token = await this.pushTokenModel.create(createPushTokenDto);
+    return token;
   }
 
   sendPushNotification(to: string) {
