@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Request, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -12,22 +12,30 @@ export class TasksController {
     return this.tasksService.create(createTaskDto);
   }
 
-  @Get()
-  findAll() {
-    return this.tasksService.findAll();
-  }
-
   @Get('tasksByAssignee')
   findTasksByAssignee(@Request() req) {
     const user = req.user
+    console.log(user)
     const res = this.tasksService.findTasksByAssignee(user.userId)
-    console.log(res);
     return res;
+  }
+  
+  @Get(':type')
+  findAll(@Param('type') type: string) {
+    return this.tasksService.findAll(type);
+  }
+
+  // We can have update Task status 
+  // and update Task differently only admin can update whole task whereas employee can only update status
+  @Put('updateTask')
+  update(@Body() updateTaskDto: UpdateTaskDto) {
+    return this.tasksService.update(updateTaskDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+  approveTask(@Param('id') id: string) {
+    console.log(id)
+    return this.tasksService.approveTask(id);
   }
 
   @Delete(':id')

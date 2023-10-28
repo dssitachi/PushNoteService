@@ -24,13 +24,12 @@ export class PushTokensService {
 
   sendPushNotification(to: string) {
     expo.sendPushNotificationsAsync([
-      { to, sound: 'default', body: 'This is a test notification' },
+      { to, sound: 'default', body: 'A task has been assigned to you' },
     ])
     return `This action returns all pushTokens`;
   }
 
   async findOne(userId: string) {
-    
     const token = await this.pushTokenModel.findOne({ userId }).exec();
     return token.token;
   }

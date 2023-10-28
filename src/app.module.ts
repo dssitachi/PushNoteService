@@ -7,6 +7,7 @@ import { PushTokensModule } from './push-tokens/push-tokens.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { UsersModule } from './users/users.module';
         uri: config.get<string>('MONGODB_URI')
       }),
     }), 
-    PushTokensModule, AuthModule, UsersModule,
+    PushTokensModule, AuthModule, UsersModule, MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

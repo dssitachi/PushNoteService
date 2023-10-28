@@ -28,7 +28,7 @@ export class AuthService {
         await this.pushTokenService.create({userId: user.userId, token });
         return {
             token: await this.jwtService.signAsync(payload),
-            isAdmin: user.email === "admin"
+            isAdmin: user.email === "admin@gmail.com"
         };
     }
 

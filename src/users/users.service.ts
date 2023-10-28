@@ -23,6 +23,6 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find().select('name userId').exec();
+    return this.userModel.find({ email: { $ne: 'admin@gmail.com' }}).select('name userId').exec();
   }
 }
